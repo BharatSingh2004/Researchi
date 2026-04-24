@@ -4,11 +4,17 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from tools import web_search , scrape_url 
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
-#model setup 
-llm = ChatOpenAI(model = "gpt-4o-mini",temperature=0)
+# Grok model setup via xAI API
+llm = ChatOpenAI(
+    model="grok-2",
+    api_key=os.getenv("GROK_API_KEY"),
+    base_url="https://api.x.ai/v1",
+    temperature=0
+)
 
 
 #1st agent 

@@ -4,7 +4,7 @@ langchain-core>=0.2.0
 langchain-community>=0.2.0
 langchain-openai>=0.1.0
 
-# OpenAI
+# xAI Grok (OpenAI-compatible API)
 openai>=1.30.0
 
 # Tavily Search Tool
