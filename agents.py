@@ -24,7 +24,7 @@ class ChatXAISanitized(ChatOpenAI):
 
 # Grok model setup via xAI API
 llm = ChatXAISanitized(
-    model="grok-2-latest",
+    model="grok-4.20-non-reasoning",
     api_key=os.getenv("GROK_API_KEY"),
     base_url="https://api.x.ai/v1",
     temperature=0
