@@ -4,8 +4,8 @@ langchain-core>=0.2.0
 langchain-community>=0.2.0
 langchain-openai>=0.1.0
 
-# xAI Grok (OpenAI-compatible API)
-openai>=1.30.0
+# Google Gemini API
+langchain-google-genai>=1.0.0
 
 # Tavily Search Tool
 tavily-python>=0.3.0

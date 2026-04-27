@@ -1,3 +1,4 @@
+import time
 from agents import build_reader_agent , build_search_agent , writer_chain , critic_chain
 
 def run_research_pipeline(topic : str) -> dict:
@@ -22,6 +23,7 @@ def run_research_pipeline(topic : str) -> dict:
     print("step 2 - Reader agent is scraping top resources ...")
     print("="*50)
 
+    time.sleep(2) # Delay to prevent API rate limits
     reader_agent = build_reader_agent()
     reader_result = reader_agent.invoke({
         "messages": [("user",
@@ -46,6 +48,7 @@ def run_research_pipeline(topic : str) -> dict:
         f"DETAILED SCRAPED CONTENT : \n {state['scraped_content']}"
     )
 
+    time.sleep(3) # Delay to prevent API rate limits
     state["report"] = writer_chain.invoke({
         "topic" : topic,
         "research" : research_combined
@@ -59,6 +62,7 @@ def run_research_pipeline(topic : str) -> dict:
     print("step 4 - critic is reviewing the report ")
     print("="*50)
 
+    time.sleep(3) # Delay to prevent API rate limits
     state["feedback"] = critic_chain.invoke({
         "report":state['report']
     })

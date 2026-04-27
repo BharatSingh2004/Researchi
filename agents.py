@@ -1,6 +1,5 @@
 from langchain.agents import create_agent
-from langchain_openai import ChatOpenAI
-from langchain_core.messages import AIMessage
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from tools import web_search , scrape_url 
@@ -9,24 +8,10 @@ import os
 
 load_dotenv()
 
-class ChatXAISanitized(ChatOpenAI):
-    def _generate(self, messages, stop=None, run_manager=None, **kwargs):
-        for msg in messages:
-            if isinstance(msg, AIMessage) and not msg.content and hasattr(msg, 'tool_calls') and msg.tool_calls:
-                msg.content = " "
-        return super()._generate(messages, stop, run_manager, **kwargs)
-    
-    async def _agenerate(self, messages, stop=None, run_manager=None, **kwargs):
-        for msg in messages:
-            if isinstance(msg, AIMessage) and not msg.content and hasattr(msg, 'tool_calls') and msg.tool_calls:
-                msg.content = " "
-        return await super()._agenerate(messages, stop, run_manager, **kwargs)
-
-# Grok model setup via xAI API
-llm = ChatXAISanitized(
-    model="grok-4.20-non-reasoning",
-    api_key=os.getenv("GROK_API_KEY"),
-    base_url="https://api.x.ai/v1",
+# Gemini model setup via Google Generative AI
+llm = ChatGoogleGenerativeAI(
+    model="gemini-2.5-flash",
+    api_key=os.getenv("GEMINI_API_KEY"),
     temperature=0
 )
 
